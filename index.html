@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Divya Warule — Full Stack Developer & AI Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Fraunces:ital,wght@0,300;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050a0e;
+    --bg2: #0b1318;
+    --surface: #0f1c24;
+    --border: rgba(0,210,150,0.12);
+    --accent: #00d296;
+    --accent2: #00a8ff;
+    --accent3: #ff6b35;
+    --text: #e8f4f0;
+    --muted: #6b8a80;
+    --card: rgba(0,210,150,0.04);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom Cursor */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s;
+    mix-blend-mode: screen;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.18s ease;
+    opacity: 0.5;
+  }
+
+  /* Noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.6;
+  }
+
+  /* Grid lines */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(0,210,150,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,210,150,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 3rem;
+    background: rgba(5,10,14,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--text); }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+  }
+  nav ul a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  nav ul a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 70% 60% at 80% 50%, rgba(0,210,150,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(0,168,255,0.05) 0%, transparent 60%);
+  }
+
+  .hero-orb {
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, #00d296, #00a8ff, #ff6b35, #00d296);
+    filter: blur(70px);
+    opacity: 0.12;
+    animation: spin 12s linear infinite;
+  }
+
+  @keyframes spin { to { transform: translateY(-50%) rotate(360deg); } }
+
+  .hero-ring {
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,210,150,0.2);
+    animation: pulse-ring 3s ease-in-out infinite;
+  }
+  .hero-ring:nth-child(3) {
+    width: 420px; height: 420px;
+    animation-delay: 1s;
+    border-color: rgba(0,168,255,0.1);
+  }
+
+  @keyframes pulse-ring {
+    0%, 100% { opacity: 0.5; transform: translateY(-50%) scale(1); }
+    50% { opacity: 1; transform: translateY(-50%) scale(1.03); }
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 680px; }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0,210,150,0.08);
+    border: 1px solid rgba(0,210,150,0.2);
+    padding: 0.4rem 1rem;
+    border-radius: 2px;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.8rem;
+    animation: fade-up 0.8s ease both;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: blink 1.5s ease-in-out infinite;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3.2rem, 6vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    animation: fade-up 0.8s 0.1s ease both;
+  }
+  .hero h1 .name-first { display: block; color: var(--text); }
+  .hero h1 .name-last {
+    display: block;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--accent);
+  }
+
+  .hero-subtitle {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--muted);
+    margin: 1.5rem 0 2rem;
+    line-height: 1.6;
+    animation: fade-up 0.8s 0.2s ease both;
+  }
+  .hero-subtitle strong { color: var(--accent2); font-style: normal; font-family: 'DM Mono', monospace; font-size: 0.9rem; }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+    animation: fade-up 0.8s 0.3s ease both;
+  }
+  .stat-item { }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em; margin-top: 0.2rem; text-transform: uppercase; }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    animation: fade-up 0.8s 0.4s ease both;
+  }
+  .btn-primary {
+    padding: 0.85rem 2rem;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: none;
+    transition: all 0.2s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .btn-primary:hover { background: #00ffb7; transform: translateY(-2px); }
+  .btn-secondary {
+    padding: 0.85rem 2rem;
+    background: transparent;
+    color: var(--accent);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid rgba(0,210,150,0.3);
+    cursor: none;
+    transition: all 0.2s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .btn-secondary:hover { border-color: var(--accent); background: rgba(0,210,150,0.06); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    animation: fade-in 2s 1s ease both;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scroll-line 2s ease-in-out infinite;
+  }
+  @keyframes scroll-line {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 7rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.4;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .section-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin: 0;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    margin-top: 3rem;
+    align-items: center;
+  }
+  .about-text p {
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+  }
+  .about-text p strong { color: var(--text); }
+  .about-text .highlight {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--text);
+    border-left: 2px solid var(--accent);
+    padding-left: 1.2rem;
+    margin: 1.8rem 0;
+    line-height: 1.7;
+  }
+
+  .about-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .badge-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .badge-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--accent);
+    transform: scaleY(0);
+    transition: transform 0.3s;
+    transform-origin: bottom;
+  }
+  .badge-card:hover::before { transform: scaleY(1); }
+  .badge-card:hover { border-color: rgba(0,210,150,0.25); }
+  .badge-icon { font-size: 1.5rem; }
+  .badge-info { }
+  .badge-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.85rem; margin-bottom: 0.2rem; }
+  .badge-sub { font-size: 0.7rem; color: var(--muted); }
+
+  /* SKILLS */
+  .skills-container { margin-top: 3rem; }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 3rem;
+  }
+  .skill-cell {
+    background: var(--bg);
+    padding: 1.8rem;
+    transition: background 0.2s;
+  }
+  .skill-cell:hover { background: var(--card); }
+  .skill-cell-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .tag {
+    background: rgba(0,210,150,0.06);
+    border: 1px solid rgba(0,210,150,0.15);
+    padding: 0.3rem 0.7rem;
+    font-size: 0.72rem;
+    color: var(--text);
+    transition: all 0.2s;
+  }
+  .tag:hover {
+    background: rgba(0,210,150,0.12);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .tag.highlight-tag {
+    background: rgba(0,168,255,0.08);
+    border-color: rgba(0,168,255,0.2);
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+  .project-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,210,150,0.04) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .project-card:hover { border-color: rgba(0,210,150,0.25); transform: translateY(-3px); }
+  .project-card:hover::after { opacity: 1; }
+  .project-card.featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .project-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: rgba(0,210,150,0.08);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s;
+  }
+  .project-card:hover .project-num { color: rgba(0,210,150,0.15); }
+
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+  .project-desc {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.8;
+    flex: 1;
+    margin-bottom: 1.2rem;
+  }
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.2rem;
+  }
+  .project-tag {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.6rem;
+    background: rgba(0,168,255,0.08);
+    border: 1px solid rgba(0,168,255,0.15);
+    color: var(--accent2);
+    letter-spacing: 0.05em;
+  }
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: gap 0.2s;
+    margin-top: auto;
+    position: relative;
+    z-index: 2;
+  }
+  .project-link:hover { gap: 0.7rem; }
+
+  .project-disclaimer {
+    font-size: 0.68rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    font-style: italic;
+  }
+
+  .project-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .highlight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .highlight-item::before {
+    content: '→';
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 0.05em;
+  }
+
+  /* ACHIEVEMENTS */
+  .achieve-grid {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .achieve-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.4rem;
+    border: 1px solid var(--border);
+    background: var(--card);
+    transition: all 0.3s;
+    position: relative;
+  }
+  .achieve-item:hover {
+    border-color: rgba(0,210,150,0.2);
+    transform: translateX(4px);
+  }
+  .achieve-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .achieve-text { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+  .achieve-text strong { display: block; color: var(--text); font-family: 'Syne', sans-serif; font-size: 0.85rem; margin-bottom: 0.2rem; }
+
+  /* EDUCATION */
+  .edu-timeline {
+    margin-top: 3rem;
+    position: relative;
+    padding-left: 2rem;
+  }
+  .edu-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.5rem; bottom: 0.5rem;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), rgba(0,210,150,0.1));
+  }
+  .edu-item {
+    position: relative;
+    padding-bottom: 2.5rem;
+    padding-left: 1.5rem;
+  }
+  .edu-item::before {
+    content: '';
+    position: absolute;
+    left: -2.4rem;
+    top: 0.4rem;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+  }
+  .edu-year {
+    font-size: 0.68rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .edu-degree {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+  }
+  .edu-school { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.3rem; }
+  .edu-score {
+    display: inline-block;
+    background: rgba(0,210,150,0.08);
+    border: 1px solid rgba(0,210,150,0.2);
+    padding: 0.2rem 0.6rem;
+    font-size: 0.7rem;
+    color: var(--accent);
+  }
+
+  /* CONTACT */
+  .contact-section {
+    text-align: center;
+    padding: 8rem 3rem;
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .contact-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,210,150,0.05) 0%, transparent 70%);
+  }
+  .contact-section .section-title { font-size: clamp(2.5rem, 6vw, 5rem); }
+  .contact-subtitle {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 1.1rem;
+    margin: 1rem 0 3rem;
+  }
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 4rem;
+  }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.5rem;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+  }
+  .contact-link:hover {
+    border-color: rgba(0,210,150,0.3);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .contact-link-icon { font-size: 1rem; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.7rem;
+    color: var(--muted);
+    position: relative;
+    z-index: 1;
+  }
+  footer span { color: var(--accent); }
+
+  /* Reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Terminal-style CGPA display */
+  .cgpa-terminal {
+    background: #0a0f0d;
+    border: 1px solid rgba(0,210,150,0.2);
+    padding: 1.2rem 1.5rem;
+    font-size: 0.75rem;
+    line-height: 1.9;
+    margin-top: 1.5rem;
+  }
+  .cgpa-terminal .line-1 { color: var(--muted); }
+  .cgpa-terminal .line-2 { color: var(--accent); }
+  .cgpa-terminal .line-3 { color: var(--accent2); }
+  .cgpa-terminal .prompt { color: var(--accent3); margin-right: 0.5rem; }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    nav ul { gap: 1.2rem; }
+    .hero { padding: 7rem 1.5rem 4rem; }
+    .hero-ring, .hero-orb { display: none; }
+    section { padding: 5rem 1.5rem; }
+    .about-grid, .projects-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .project-card.featured { grid-column: auto; grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .achieve-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    .hero-stats { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">DW<span>.</span></div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#achievements">Achieve</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-orb"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-content">
+    <div class="hero-tag">3rd Year B.Tech · Available for Internships · 2026</div>
+    <h1>
+      <span class="name-first">Divya</span>
+      <span class="name-last">Warule</span>
+    </h1>
+    <p class="hero-subtitle">
+      Full Stack Developer &amp; <strong>Agentic AI Builder</strong> —<br>
+      crafting real-world solutions from Maharashtra to the world.
+    </p>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">8.45</div>
+        <div class="stat-label">CGPA (Cumulative)</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">6+</div>
+        <div class="stat-label">Projects</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">Top 20</div>
+        <div class="stat-label">NEC · IIT Bombay</div>
+      </div>
+    </div>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">View Work</a>
+      <a href="#contact" class="btn-secondary">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">01 — About</div>
+  <div class="section-title">Builder by<br>instinct.</div>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>I'm a <strong>third-year B.Tech CS student</strong> at Sanjivani University with a relentless drive to build things that matter. I don't just write code — I architect systems, from 6-agent autonomous AI pipelines to full-stack Android+web platforms for real clients.</p>
+      <p>My work lives at the intersection of <strong>software engineering, machine learning, and product thinking</strong>. Whether it's training delay-risk classifiers for MSME logistics or building contactless attendance systems for universities, I build end-to-end.</p>
+      <blockquote class="highlight">"Third year. Already shipping real products for real clients. The timeline only goes up."</blockquote>
+      <p>Currently leading as <strong>VP of E-Cell</strong> and heading the <strong>Startup & Incubation Committee</strong> at IIC — connecting students to mentors, ideas to funding.</p>
+    </div>
+    <div class="about-badges">
+      <div class="badge-card">
+        <div class="badge-icon">🎓</div>
+        <div class="badge-info">
+          <div class="badge-title">B.Tech Computer Science</div>
+          <div class="badge-sub">Sanjivani University · 3rd Year · 1st Yr 8.86 · 2nd Yr 8.45</div>
+        </div>
+      </div>
+      <div class="badge-card">
+        <div class="badge-icon">🏆</div>
+        <div class="badge-info">
+          <div class="badge-title">Top 20 — NEC by IIT Bombay</div>
+          <div class="badge-sub">National Entrepreneurship Challenge</div>
+        </div>
+      </div>
+      <div class="badge-card">
+        <div class="badge-icon">⚡</div>
+        <div class="badge-info">
+          <div class="badge-title">VP, Sanjivani E-Cell</div>
+          <div class="badge-sub">100+ students connected to mentors</div>
+        </div>
+      </div>
+      <div class="badge-card">
+        <div class="badge-icon">🤖</div>
+        <div class="badge-info">
+          <div class="badge-title">Smart Lab Member</div>
+          <div class="badge-sub">AI & Emerging Technology Research</div>
+        </div>
+      </div>
+      <div class="cgpa-terminal">
+        <div><span class="prompt">$</span><span class="line-1">academic_performance --verbose</span></div>
+        <div><span class="line-2">▸ First Year Final CGPA .... 8.86</span></div>
+        <div><span class="line-3">▸ Second Year Final CGPA ... 8.45</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">02 — Skills</div>
+  <div class="section-title">The stack.</div>
+  <div class="skills-container reveal">
+    <div class="skills-grid">
+      <div class="skill-cell">
+        <div class="skill-cell-label">Languages</div>
+        <div class="skill-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Java</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">TypeScript</span>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cell-label">Frontend</div>
+        <div class="skill-tags">
+          <span class="tag">React</span>
+          <span class="tag">HTML5</span>
+          <span class="tag">CSS3</span>
+          <span class="tag">Tailwind CSS</span>
+          <span class="tag">Vite</span>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cell-label">Backend</div>
+        <div class="skill-tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">Express.js</span>
+          <span class="tag">REST APIs</span>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cell-label">AI / ML</div>
+        <div class="skill-tags">
+          <span class="tag highlight-tag">Agentic AI</span>
+          <span class="tag highlight-tag">Groq LLM</span>
+          <span class="tag highlight-tag">Scikit-learn</span>
+          <span class="tag highlight-tag">LLM Integration</span>
+          <span class="tag highlight-tag">Rule-Based Systems</span>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cell-label">Database & Cloud</div>
+        <div class="skill-tags">
+          <span class="tag">Firebase Firestore</span>
+          <span class="tag">Firebase Auth</span>
+          <span class="tag">Cloud Functions</span>
+          <span class="tag">Firebase Storage</span>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-cell-label">Tools & Mobile</div>
+        <div class="skill-tags">
+          <span class="tag">Git & GitHub</span>
+          <span class="tag">Android Studio</span>
+          <span class="tag">Figma</span>
+          <span class="tag">Postman</span>
+          <span class="tag">Railway</span>
+          <span class="tag">VS Code</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">03 — Projects</div>
+  <div class="section-title">Things I've<br>shipped.</div>
+  <div class="projects-grid">
+
+    <!-- Featured Project -->
+    <div class="project-card featured reveal">
+      <div>
+        <div class="project-num">01</div>
+        <div class="project-title">Agentic AI for MSME Operations</div>
+        <div class="project-desc">
+          An autonomous 6-agent pipeline unifying website and WhatsApp order channels into a single operational workflow. Built a multi-layered decision engine for real-time business intelligence and workforce management.
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">Node.js</span>
+          <span class="project-tag">React</span>
+          <span class="project-tag">Groq LLM</span>
+          <span class="project-tag">Scikit-learn</span>
+          <span class="project-tag">Firebase</span>
+        </div>
+        <a href="https://github.com/waruledivya1411/Agentic-AI-for-MSME-Operations" target="_blank" rel="noopener noreferrer" class="project-link">View on GitHub →</a>
+      </div>
+      <div class="project-highlights">
+        <div class="highlight-item">Architected a 6-agent pipeline: Order → Inventory → Decision Engine → Workforce → Critic → Executor</div>
+        <div class="highlight-item">ML delay-risk classifier with logistic regression on Olist dataset — 3-tier predictions (No Tension / Moderate / High Risk)</div>
+        <div class="highlight-item">Real-time web dashboard with live KPIs, workforce load tracking, and WhatsApp terminal log</div>
+        <div class="highlight-item">Reduced manual coordination overhead for MSME operators significantly</div>
+      </div>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="project-card reveal">
+      <div class="project-num">02</div>
+      <div class="project-title">CityPulse Mumbai</div>
+      <div class="project-desc">
+        Live smart-city dashboard for Mumbai — air quality, traffic emissions (NO₂ proxy), rainfall, and solar data on an interactive map. Fifteen monitoring sites at real landmarks, live Open-Meteo data every 15 minutes, KPIs, Recharts trends, zone analytics, and auto-generated alerts.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">React 19</span>
+        <span class="project-tag">TypeScript</span>
+        <span class="project-tag">Leaflet</span>
+        <span class="project-tag">Vite</span>
+        <span class="project-tag">Recharts</span>
+        <span class="project-tag">Tailwind CSS</span>
+        <span class="project-tag">Open-Meteo</span>
+        <span class="project-tag">2026</span>
+      </div>
+      <a href="https://github.com/waruledivya1411/citypulse-dashboard" target="_blank" rel="noopener noreferrer" class="project-link">View on GitHub →</a>
+    </div>
+
+    <!-- Project 3 -->
+    <div class="project-card reveal">
+      <div class="project-num">03</div>
+      <div class="project-title">AttendMax — Smart Attendance System</div>
+      <div class="project-desc">
+        QR code-based contactless attendance system replacing 100% of manual paper-based processes. Role-based dashboards for Faculty &amp; Students with real-time analytics and auto-report generation.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">HTML</span>
+        <span class="project-tag">Tailwind CSS</span>
+        <span class="project-tag">Firebase</span>
+        <span class="project-tag">Cloud Functions</span>
+        <span class="project-tag">Client Work</span>
+      </div>
+      <p class="project-disclaimer">Freelance client project — source code is private and not shared publicly.</p>
+    </div>
+
+    <!-- Project 4 -->
+    <div class="project-card reveal">
+      <div class="project-num">04</div>
+      <div class="project-title">Kailash Masale — Sales & Employee Management</div>
+      <div class="project-desc">
+        Dual-platform solution for a real-world client: Android app for field staff + admin web dashboard. Check-in/check-out, order management, DA/TA tracking — fully replacing manual record-keeping.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">Android (Java)</span>
+        <span class="project-tag">Vite</span>
+        <span class="project-tag">Firebase</span>
+        <span class="project-tag">Client Work</span>
+      </div>
+      <p class="project-disclaimer">Freelance client project — source code is private and not shared publicly.</p>
+    </div>
+
+    <!-- Project 5 -->
+    <div class="project-card reveal">
+      <div class="project-num">05</div>
+      <div class="project-title">AromaWrap — E-Commerce Web App</div>
+      <div class="project-desc">
+        Full-featured e-commerce store with catalog, cart, wishlist, and orders. UPI QR payment flow with Firebase backend and an admin dashboard for payment confirmation and rejection.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">React 18</span>
+        <span class="project-tag">TypeScript</span>
+        <span class="project-tag">Vite</span>
+        <span class="project-tag">Tailwind CSS</span>
+        <span class="project-tag">Firebase</span>
+        <span class="project-tag">TanStack Query</span>
+        <span class="project-tag">Framer Motion</span>
+        <span class="project-tag">2026</span>
+        <span class="project-tag">Client Work</span>
+      </div>
+      <p class="project-disclaimer">Freelance client project — source code is private and not shared publicly.</p>
+    </div>
+
+    <!-- Project 6 -->
+    <div class="project-card reveal">
+      <div class="project-num">06</div>
+      <div class="project-title">Rule-Based Startup Feasibility Evaluator</div>
+      <div class="project-desc">
+        Full-stack evaluation platform with 5 structured modules and fixed-weight formulas across 3 verdict tiers — enabling data-driven startup go/no-go decisions backed by real analytics.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">React</span>
+        <span class="project-tag">Node.js</span>
+        <span class="project-tag">Express</span>
+        <span class="project-tag">Firebase</span>
+      </div>
+      <a href="https://github.com/waruledivya1411/Rule-Based-Startup-Feasibility-Evaluator" target="_blank" rel="noopener noreferrer" class="project-link">View on GitHub →</a>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-label">04 — Achievements & Leadership</div>
+  <div class="section-title">Recognition<br>&amp; impact.</div>
+  <div class="achieve-grid reveal">
+    <div class="achieve-item">
+      <div class="achieve-icon">🥇</div>
+      <div class="achieve-text">
+        <strong>Top 20 — National Entrepreneurship Challenge</strong>
+        IIT Bombay's NEC — selected among thousands of student teams nationwide.
+      </div>
+    </div>
+    <div class="achieve-item">
+      <div class="achieve-icon">🏆</div>
+      <div class="achieve-text">
+        <strong>Winner — Eureka Startup Pitching Competition</strong>
+        Sanjivani University's flagship startup competition.
+      </div>
+    </div>
+    <div class="achieve-item">
+      <div class="achieve-icon">💻</div>
+      <div class="achieve-text">
+        <strong>Winner — Web Development Competition</strong>
+        University-level web development challenge, Sanjivani University.
+      </div>
+    </div>
+    <div class="achieve-item">
+      <div class="achieve-icon">⭐</div>
+      <div class="achieve-text">
+        <strong>Special Appreciation — Industry Hackathon</strong>
+        Recognized for innovative solution at Sanjivani University hackathon.
+      </div>
+    </div>
+    <div class="achieve-item">
+      <div class="achieve-icon">⚡</div>
+      <div class="achieve-text">
+        <strong>Vice-President, Sanjivani E-Cell</strong>
+        Organized startup events; connected 100+ students with mentors and industry leaders.
+      </div>
+    </div>
+    <div class="achieve-item">
+      <div class="achieve-icon">🚀</div>
+      <div class="achieve-text">
+        <strong>Head, Startup & Incubation Committee — IIC</strong>
+        Led student innovator mentoring and incubation activities at Institution's Innovation Council.
+      </div>
+    </div>
+    <div class="achieve-item">
+      <div class="achieve-icon">📋</div>
+      <div class="achieve-text">
+        <strong>Joint Secretary, CSE Department Council</strong>
+        Coordinated technical and student-facing departmental events.
+      </div>
+    </div>
+    <div class="achieve-item">
+      <div class="achieve-icon">🔬</div>
+      <div class="achieve-text">
+        <strong>Member, Smart Lab</strong>
+        Exploring practical applications of AI and emerging technologies through research.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">05 — Education</div>
+  <div class="section-title">The<br>foundation.</div>
+  <div class="edu-timeline reveal">
+    <div class="edu-item">
+      <div class="edu-year">2024 — 2028</div>
+      <div class="edu-degree">B.Tech — Computer Science Engineering (3rd Year)</div>
+      <div class="edu-school">Sanjivani University, Kopargaon, Maharashtra</div>
+      <span class="edu-score">1st Year CGPA: 8.86 &nbsp;|&nbsp; 2nd Year CGPA: 8.45</span>
+    </div>
+    <div class="edu-item">
+      <div class="edu-year">2022</div>
+      <div class="edu-degree">Senior Secondary (XII) — Science</div>
+      <div class="edu-school">Priyadarshini Public School, Bhingar (MSBSHSE)</div>
+      <span class="edu-score">73.17%</span>
+    </div>
+    <div class="edu-item">
+      <div class="edu-year">2020</div>
+      <div class="edu-degree">Secondary (X)</div>
+      <div class="edu-school">Yashshree Academy, Ahmednagar (CBSE)</div>
+      <span class="edu-score">90.60%</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="contact-bg"></div>
+  <div class="section-label" style="justify-content:center; margin-bottom: 1rem;">06 — Contact</div>
+  <h2 class="section-title reveal">Let's build<br>something.</h2>
+  <p class="contact-subtitle reveal">Open to internships in software development & data science.</p>
+  <div class="contact-links reveal">
+    <a href="mailto:divya.warule24@sanjivani.edu.in" class="contact-link">
+      <span class="contact-link-icon">✉</span>
+      divya.warule24@sanjivani.edu.in
+    </a>
+    <a href="tel:+917972064645" class="contact-link">
+      <span class="contact-link-icon">☎</span>
+      +91 7972064645
+    </a>
+    <a href="https://github.com/waruledivya1411" target="_blank" class="contact-link">
+      <span class="contact-link-icon">⌥</span>
+      github.com/waruledivya1411
+    </a>
+    <a href="#" class="contact-link">
+      <span class="contact-link-icon">◎</span>
+      Kopargaon, Maharashtra
+    </a>
+  </div>
+  <a href="mailto:divya.warule24@sanjivani.edu.in" class="btn-primary" style="font-size:0.85rem; padding: 1rem 2.5rem;">
+    Say Hello →
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>© 2026 <span>Divya Raosaheb Warule</span> — Built with purpose.</div>
+  <div>Sanjivani University · Kopargaon, Maharashtra</div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 5 + 'px';
+    cursor.style.top = my - 5 + 'px';
+  });
+  function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx - 18 + 'px';
+    ring.style.top = ry - 18 + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  // Hover effect on interactive elements
+  document.querySelectorAll('a, button, .badge-card, .project-card, .achieve-item').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'scale(2.5)';
+      ring.style.opacity = '0';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'scale(1)';
+      ring.style.opacity = '0.5';
+    });
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Number counter animation
+  function animateCount(el, target, decimals = 0) {
+    let start = 0;
+    const duration = 2000;
+    const startTime = performance.now();
+    function update(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = start + (target - start) * eased;
+      el.textContent = decimals ? value.toFixed(2) : Math.floor(value);
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  const statsObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const nums = entry.target.querySelectorAll('.stat-num');
+        // animate CGPA
+        if (nums[0]) animateCount(nums[0], 8.45, 2);
+        statsObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  const heroStats = document.querySelector('.hero-stats');
+  if (heroStats) statsObs.observe(heroStats);
+</script>
+</body>
+</html>
