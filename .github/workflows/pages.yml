@@ -27,11 +27,15 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
+      - name: Prepare site files
+        run: |
+          mkdir -p _site
+          cp index.html robots.txt sitemap.xml _site/
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
-          include-hidden-files: false
+          path: _site
 
       - name: Deploy to GitHub Pages
         id: deployment
