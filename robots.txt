@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jay-07-pixel.github.io/Divya_Portfolio/sitemap.xml
