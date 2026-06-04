@@ -1,0 +1,4 @@
+*.docx
+generate_resume.py
+.firebase/
+firebase-debug.log
