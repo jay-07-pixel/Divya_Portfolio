@@ -591,6 +591,14 @@
   }
   .project-link:hover { gap: 0.7rem; }
 
+  .project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-top: auto;
+  }
+  .project-links .project-link { margin-top: 0; }
+
   .project-disclaimer {
     font-size: 0.68rem;
     color: var(--muted);
@@ -1000,7 +1008,10 @@
           <span class="project-tag">Scikit-learn</span>
           <span class="project-tag">Firebase</span>
         </div>
-        <a href="https://singular-genie-515600.netlify.app/overview" target="_blank" rel="noopener noreferrer" class="project-link">Live Demo →</a>
+        <div class="project-links">
+          <a href="https://singular-genie-515600.netlify.app/overview" target="_blank" rel="noopener noreferrer" class="project-link">Live Demo →</a>
+          <a href="https://github.com/waruledivya1411/Agentic-AI-for-MSME-Operations/blob/main/README.md" target="_blank" rel="noopener noreferrer" class="project-link">View README →</a>
+        </div>
       </div>
       <div class="project-highlights">
         <div class="highlight-item">Architected a 6-agent pipeline: Order → Inventory → Decision Engine → Workforce → Critic → Executor</div>
