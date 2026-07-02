@@ -144,6 +144,126 @@ Order → Inventory → Decision Engine → Workforce → Critic → Executor
 
 ---
 
+## Smart Trip Planner India
+
+Your intelligent travel companion for exploring Incredible India with smart itinerary planning, live data integration, and personalized recommendations.
+
+**Live Demo:** [https://smart-tripplanner.netlify.app/](https://smart-tripplanner.netlify.app/)  
+**GitHub:** [https://github.com/jay-07-pixel/Smart_Trip-_Planner-.git](https://github.com/jay-07-pixel/Smart_Trip-_Planner-.git)
+
+### What makes this special
+
+Smart Trip Planner India combines live API data (Google Places, OpenWeatherMap, Google Maps) with rule-based itinerary logic to build personalized travel plans by destination, budget, trip type, and travel style.  
+The core planner uses real-time APIs plus template-driven planning (not a third-party LLM API).
+
+### Key highlights
+
+- Day-by-day itinerary generation (up to 5 days in output)
+- Live hotels, restaurants, attractions via Google Places API
+- Real-time weather forecasts via OpenWeatherMap
+- Optional traffic analysis with best departure windows and 8-day patterns
+- Budget planning with 6 category sliders and allocation tracking
+- External booking and comparison links (hotels, flights, trains, buses, food delivery)
+- 8 trip types and 3 travel styles (Relaxed, Balanced, Intense)
+- Fully responsive design for desktop and mobile
+
+### Trip planner features
+
+The main interactive app is `trip-planner.html`.
+
+- **Trip form:** destination, dates, trip type, style, budget, and optional traffic analysis
+- **Live data integration:** places, weather, and route-time insights
+- **Traffic analysis:** route overview, best/avoid times, and heatmap-style multi-day pattern
+- **Budget management:** category-based budget splits with warnings and live tracking
+- **Transport recommendations:** flights/trains/buses with budget fit hints
+- **Interactive actions:** directions, details modals, booking links, and progress overlay
+
+### Technology stack
+
+- **Frontend:** HTML5, Tailwind CSS, JavaScript (ES6+), Font Awesome
+- **Animations:** GSAP
+- **Integrations:** Google Maps JavaScript API, Google Places API, Distance Matrix API, OpenWeatherMap, Browser Geolocation API
+- **Deployment:** Netlify
+
+### Getting started
+
+```bash
+git clone https://github.com/jay-07-pixel/Smart_Trip-_Planner-.git
+cd Smart_Trip-_Planner-
+python -m http.server 8000
+```
+
+Open `http://localhost:8000/trip-planner.html`.
+
+### Local configuration
+
+- Copy `js/config.example.js` to `js/config.js`
+- Add API keys for Google Maps/Places and OpenWeatherMap
+- Do not commit `js/config.js` (kept in `.gitignore`)
+
+### Roadmap
+
+- Use traveler count/interests/special requirements in generation logic
+- Export itineraries (PDF/calendar) and shareable links
+- Mobile app and offline support
+- Multi-language support
+- Future LLM-powered enhancement and direct in-app booking
+
+---
+
+## Medify - Healthcare Platform
+
+A comprehensive healthcare platform that provides online pharmacy services, doctor consultations, lab test bookings, and health insurance solutions.
+
+**GitHub:** [https://github.com/waruledivya1411/Medify.git](https://github.com/waruledivya1411/Medify.git)
+
+### Features
+
+- **Online Pharmacy** — browse medicines by category, search products, upload prescriptions, and manage cart
+- **Doctor Consultations** — browse specialties, filter by mode/experience/fees/language, and view doctor profiles
+- **Lab Tests** — doctor-created packages with pricing, discounts, categories, and carousel browsing
+- **Health Insurance** — compare plans and enroll in suitable coverage options
+- **User Experience** — login/signup flow, address selection, responsive UI, and localStorage-backed cart state
+
+### Tech stack
+
+- **Frontend:** HTML5, CSS3, Vanilla JavaScript
+- **Icons:** Font Awesome 6.4.0 (CDN)
+- **Data handling:** localStorage (frontend-only app)
+
+### Project structure
+
+```text
+Dipex/
+├── index.html
+├── medicines.html
+├── consultation.html
+├── doctors.html
+├── labtest.html
+├── labtests-list.html
+├── insurance.html
+├── doctors-simple.html
+├── styles.css
+├── script.js
+├── doctors.js
+├── medicines-data.js
+├── labtests-data.js
+└── README.md
+```
+
+### Getting started
+
+1. Clone or download the repository.
+2. Open `index.html` in a modern browser.
+3. No server/build setup is required.
+
+### Notes
+
+- Frontend-only architecture, no backend required for basic functionality
+- For production, integrate backend services for auth, payments, booking, and order workflows
+
+---
+
 ## Portfolio — run locally
 
 This portfolio is a static site — no build step required.
