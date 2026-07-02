@@ -144,6 +144,69 @@ Order → Inventory → Decision Engine → Workforce → Critic → Executor
 
 ---
 
+## CityPulse Mumbai
+
+Live smart-city dashboard for Mumbai, Maharashtra — air quality, traffic emissions, rainfall, and solar data on an interactive map.
+
+Built as a portfolio project covering front-end development, geospatial visualization, and UI/UX for dashboard and app developer roles.
+
+**GitHub:** [https://github.com/waruledivya1411/citypulse-dashboard.git](https://github.com/waruledivya1411/citypulse-dashboard.git)
+
+### Overview
+
+CityPulse turns public environmental APIs into a single, readable dashboard:
+
+- 15 monitoring sites at real Mumbai landmarks
+- Live metrics refreshed every 15 minutes from Open-Meteo (no API key required)
+- Interactive map (Leaflet + OpenStreetMap) with filters, popups, and fly-to selection
+- Charts and KPIs (Recharts) for trends, zone comparison, and alerts
+
+### Live data (what is real)
+
+- **Air Quality:** US AQI, PM2.5 (Open-Meteo Air Quality API / Copernicus CAMS)
+- **Traffic proxy:** NO2 (ug/m3) as a practical emissions indicator
+- **Flood/Rain:** Precipitation (mm) from Open-Meteo Weather API
+- **Energy:** Solar radiation (W/m2) from Open-Meteo Weather API
+
+Note: Traffic is NO2 pollution proxy, not road congestion percentage.
+
+### Features
+
+- KPI cards (active sites, alerts, average AQI, average NO2)
+- 24-hour trend chart (AQI, NO2, solar radiation)
+- Full-screen map explorer with category/status filters
+- Zone-level analytics and solar irradiance time series
+- Auto-generated alerts when thresholds are exceeded
+
+### Tech stack
+
+- **UI:** React 19, TypeScript, Tailwind CSS v4
+- **Maps:** Leaflet, React-Leaflet, OpenStreetMap
+- **Charts:** Recharts
+- **Build:** Vite 8
+- **Data:** Open-Meteo REST APIs
+
+### Getting started
+
+```bash
+git clone <your-repo-url>
+cd citypulse-mumbai
+npm install
+npm run dev
+```
+
+Open `http://localhost:5173` in your browser.
+
+### How it works
+
+1. `fetchLiveMumbaiData()` requests batch coordinates for all 15 sites.
+2. Responses map into sensor objects with health status rules.
+3. Alerts generate from warning/critical sensors.
+4. Hourly city history powers trend charts.
+5. Data auto-refreshes every 15 minutes.
+
+---
+
 ## Smart Trip Planner India
 
 Your intelligent travel companion for exploring Incredible India with smart itinerary planning, live data integration, and personalized recommendations.
